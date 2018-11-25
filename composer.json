@@ -1,0 +1,65 @@
+{
+    "name": "mazecode/tuenti",
+    "license": "MIT",
+    "description": "git ",
+    "authors": [
+        {
+            "name": "Diego Feliú",
+            "email": "diego.feliud@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/mazecode/tuentitest",
+            "reference": "master"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "prepend-autoloader": false
+    },
+    "require": {
+        "php": "^7.0",
+        "monolog/monolog": "^1.24"
+    },
+    "require-dev": {
+        "jakub-onderka/php-console-highlighter": "^0.4.0",
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "phpunit/phpunit": "^7",
+        "sebastian/phpcpd": "dev-master",
+        "squizlabs/php_codesniffer": "3.*"
+    },
+    "scripts": {
+        "lint": "parallel-lint --exclude app --exclude vendor .",
+        "phpcs": "phpcs -p -s src",
+        "fix": "phpcbf",
+        "unit": "phpunit --bootstrap vendor/autoload.php --testdox tests --colors=always",
+        "pre-install-cmd": "ComposerHookHandler::onPreInstall",
+        "pre-update-cmd": "ComposerHookHandler::onPreUpdate",
+        "post-install-cmd": "ComposerVendorHtaccessCreator::onEvent",
+        "post-update-cmd": "ComposerVendorHtaccessCreator::onEvent",
+        "test": [
+            "composer dumpautoload -o",
+            "@lint",
+            "@phpcs",
+            "@fix",
+            "@unit"
+        ]
+    },
+    "scripts-descriptions": {
+        "phpcs": "Checks that the application code conforms to coding standard",
+        "test": "Launches the preconfigured PHPUnit"
+    }
+}
